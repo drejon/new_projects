@@ -1,45 +1,39 @@
 export const SHIPS = [
   {
-    name: 'Water',
-    length: 0,
-    orientation: '',
-    symbol: ' '
-  },
-  {
     name: 'Carrier',
-    length: 5,
-    orientation: '',
+    size: 5,
+    orientation: null,
     symbol: 'C'
   },
   {
     name: 'BattleShip',
-    length: 4,
-    orientation: '',
+    size: 4,
+    orientation: null,
     symbol: 'B'
   },
   {
     name: 'Fragate',
-    length: 3,
-    orientation: '',
+    size: 3,
+    orientation: null,
     symbol: 'F'
   },
   {
-    name: 'Submarine',
-    length: 3,
-    orientation: '',
-    symbol: 'S'
+    name: 'Destroyer',
+    size: 3,
+    orientation: null,
+    symbol: 'D'
   },
   {
-    name: 'Destroyer',
-    length: 2,
-    orientation: '',
-    symbol: 'D'
+    name: 'Submarine',
+    size: 2,
+    orientation: null,
+    symbol: 'S'
   }  
 ]
 
-export const SHIP = {
-  name: '',
-  length: 1,
-  orientation: '',
-  symbol: ''
+export const WATER = {
+  name: ' ',
+  size: 1,
+  orientation: null,
+  symbol: ' '
 }

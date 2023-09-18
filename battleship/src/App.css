@@ -1,13 +1,15 @@
 #root {
-  max-width: 1280px;
+  max-width: 1000px;
   margin: 0 auto;
   text-align: center;
 }
 
 main {
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
   place-items: center;
+  width: 800px;
 }
 
 
@@ -20,10 +22,15 @@ main {
 
 .tile {
   align-items: center;
-  border: 2px solid white;
+  border: 4px solid white;
   border-radius: 0.3rem;
   display: flex;
   justify-content: center;
   width: 72px;
   height: 72px;
+}
+
+.foo {
+  background-color: rgb(93, 166, 195);
+  color: rgb(171, 89, 89);
 }
