@@ -6,7 +6,7 @@ function App() {
 
   return (
     <main>
-      <h1>BattleShip</h1>
+      <h1>Battleship</h1>
       <Board></Board>
     </main>
   )

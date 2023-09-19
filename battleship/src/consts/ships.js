@@ -12,7 +12,7 @@ export const SHIPS = [
     symbol: 'B'
   },
   {
-    name: 'Fragate',
+    name: 'Frigate',
     size: 3,
     orientation: null,
     symbol: 'F'
