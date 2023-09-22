@@ -6,7 +6,6 @@ import { ResetGame } from "./ResetGame";
 export function Board () {
   const [board, setBoard] = useState(generateBoard)
   const [counter, setCounter] = useState(0)
-  const [color, setColor] = useState()
 
   const handleCounter = () => {
     const newCounter = counter + 1
@@ -16,7 +15,7 @@ export function Board () {
   const resetGame = () => {
     setBoard(generateBoard)
     setCounter(0)
-    setColor(null)
+    // setColor(null)
   }
 
   return (

@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Tile } from "../components/Tile";
 import { SHIPS, WATER } from "../consts/ships";
 
 const SIZE = 7
-const COLOR = 'none'
+
 export function generateBoard() {
   const board = emptyBoard()
   let index = 0
@@ -18,6 +19,7 @@ export function generateBoard() {
       position = newPosition
     }
   } while (index != 5)
+  
   return board
 }
 
@@ -27,7 +29,7 @@ function emptyBoard() {
   for (let x = 0; x < SIZE; x++) {
     emptyBoard[x] = [];
     for (let y = 0; y < SIZE; y++) {
-      emptyBoard[x][y] = <Tile color={COLOR} key={[y, x]} position={[y, x]}>{WATER}</Tile>
+      emptyBoard[x][y] = <Tile key={[y, x]} position={[y, x]}>{WATER}</Tile>
     }
   }
   return emptyBoard
@@ -41,10 +43,10 @@ function getTile(board, position) {
 }
 
 function setTile(ship, board, position) {
-  const X = position[0]
-  const Y = position[1]
+  const x = position[0]
+  const y = position[1]
 
-  board[X][Y] = <Tile color={COLOR} key={[Y, X]} position={[Y, X]}>{ship}</Tile>
+  board[x][y] = <Tile key={JSON.stringify([y, x])} position={[y, x]}>{ship}</Tile>
 }
 
 function checkVertical(ship, board, position) {
