@@ -2,7 +2,7 @@ import { Tile } from "../components/Tile";
 import { SHIPS, WATER } from "../consts/ships";
 
 const SIZE = 7
-
+const COLOR = 'none'
 export function generateBoard() {
   const board = emptyBoard()
   let index = 0
@@ -12,7 +12,6 @@ export function generateBoard() {
     const isValid = isPositionValid(SHIPS[index], board, position)
     if (isValid) {
       placeShip(SHIPS[index], board, position)
-      console.log(SHIPS[index], position)
       index++
     } else {
       const newPosition = getRandomPosition()
@@ -23,15 +22,15 @@ export function generateBoard() {
 }
 
 function emptyBoard() {
-  const board = []
+  const emptyBoard = []
   
   for (let x = 0; x < SIZE; x++) {
-    board[x] = [];
+    emptyBoard[x] = [];
     for (let y = 0; y < SIZE; y++) {
-      board[x][y] = <Tile key={[y, x]} position={[y, x]}>{WATER}</Tile>
+      emptyBoard[x][y] = <Tile color={COLOR} key={[y, x]} position={[y, x]}>{WATER}</Tile>
     }
   }
-  return board
+  return emptyBoard
 }
 
 function getTile(board, position) {
@@ -45,7 +44,7 @@ function setTile(ship, board, position) {
   const X = position[0]
   const Y = position[1]
 
-  board[X][Y] = <Tile key={[X, Y]} position={[X, Y]}>{ship}</Tile>
+  board[X][Y] = <Tile color={COLOR} key={[Y, X]} position={[Y, X]}>{ship}</Tile>
 }
 
 function checkVertical(ship, board, position) {

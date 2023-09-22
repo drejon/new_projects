@@ -35,5 +35,5 @@ export const WATER = {
   name: ' ',
   size: 1,
   orientation: null,
-  symbol: ' '
+  symbol: null
 }

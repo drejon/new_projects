@@ -1,19 +1,22 @@
-export function Tile ({ children }) {
+import { useState } from "react"
+
+export function Tile ({ children, initialColor }) {
+  const [color, setColor] = useState(initialColor)
+  const BLUE = 'blue'
+  const RED = 'red'
+
   
-  const handleClick = (event) => {
-    event.preventDeafult
-    const element = event.target
-    console.log(element.textContent)
-    if(children.symbol === ' ') {
-      element.style = 'background-color: rgb(93, 166, 195)'
+  const handleClick = () => {
+    if(children.symbol === null) {
+      setColor(BLUE)
     } else {
-      element.style = 'background-color: rgb(171, 89, 89)'
+      setColor(RED)
     }
   }
 
   return (
-    <article className="tile" onClick={handleClick}>
-      {/* {children.name} */}
+    <article className={'tile ' + color} onClick={handleClick}>
+      {/* {children.symbol} */}
     </article>
   )
 }
