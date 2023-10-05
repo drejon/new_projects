@@ -13,12 +13,19 @@ export function GameRenderer() {
         game.board?.map((cell) => (
           <article
             className="tile"
+            onClick={() => {
+              // console.log(cell)
+              console.log('juego',game.getNearCells(cell.position))
+            }
+              // console.log(game.getNearCells(cell.position))
+            }
             key={cell.position.x.toString() + cell.position.y.toString()}
             style={{backgroundColor: cell.isMine && 'red'}}
             >
               {
               /* {[cell.position.x, cell.position.y]} */
-              cell.isMine.toString()
+              // cell.isMine.toString()
+              cell.nearMines
               }
           </article>
         ))

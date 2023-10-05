@@ -6,6 +6,7 @@ export class Game {
     this.rows = rows
     this.mines = mines
     this.board = this.createBoard()
+    this.getNearMines()
   }
 
   createBoard() {
@@ -19,7 +20,7 @@ export class Game {
         board.push(newCell)
       }
     }
-    console.log(board)
+    
     return board
   }
 
@@ -43,10 +44,36 @@ export class Game {
   generatePosition(size) {
     return Math.floor(Math.random()*size)
   }
-  
+
+  getCell(position) {
+    return this.board.find(cell => this.positionMatch(cell.position, position))
+  }
+
   positionMatch(a, b) {
     return a.x === b.x && a.y === b.y
   }
   
+  getNearCells(cellPosition) {
+    const neighbours = []
+    
+    for (let xOffset = -1; xOffset <= 1; xOffset++) {
+      for (let yOffset = -1; yOffset <= 1; yOffset++) {
+        const position = {x: cellPosition.x + xOffset, y: cellPosition.y + yOffset}
+        const neighbour = this.getCell(position)
 
+        if(neighbour !== undefined) {neighbours.push(neighbour)}
+      }
+    }
+    // console.log(neighbours)
+    return neighbours
+  }
+
+  getNearMines() {
+    this.board.map(cell => {
+      const nearCells = this.getNearCells(cell.position)
+      const mines = nearCells.filter((c) => c.isMine)
+      
+      cell.nearMines = mines.length
+    })
+  }
 }

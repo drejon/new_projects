@@ -2,7 +2,8 @@ export class Cell {
   constructor(x, y) {
     this.position = {x, y}
     this.isMine = false
-    this.nearMine = false
+    this.nearMines = 0
+    this.index = 0
   }
 
   isEqual(position) {
