@@ -2,9 +2,10 @@ import { useState } from "react"
 import { Game } from "../logic/Game"
 
 export function GameRenderer() {
-  const game = new Game(7, 7)
-  const [count, setCount] = useState(0)
-
+  const COLUMNS = 7
+  const ROWS = 7
+  const NUMBER_OF_MINES = 7
+  const game = new Game(COLUMNS, ROWS, NUMBER_OF_MINES)
 
   return (
     <section className="board">
@@ -12,8 +13,13 @@ export function GameRenderer() {
         game.board?.map((cell) => (
           <article
             className="tile"
-            key={cell.position.x.toString() + cell.position.y.toString()}>
-              {[cell.position.x, cell.position.y]}
+            key={cell.position.x.toString() + cell.position.y.toString()}
+            style={{backgroundColor: cell.isMine && 'red'}}
+            >
+              {
+              /* {[cell.position.x, cell.position.y]} */
+              cell.isMine.toString()
+              }
           </article>
         ))
       }
