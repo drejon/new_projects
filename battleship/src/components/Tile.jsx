@@ -20,7 +20,7 @@ export function Tile ({ children }) {
 
   return (
     <article className={'tile ' + color} onClick={handleClick}>
-      {children.symbol}
+      {/* {children.symbol} */}
     </article>
   )
 }

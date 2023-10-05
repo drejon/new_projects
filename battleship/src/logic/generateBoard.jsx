@@ -11,6 +11,7 @@ export function generateBoard() {
   do {
     let position = getRandomPosition()
     const isValid = isPositionValid(SHIPS[index], board, position)
+    
     if (isValid) {
       placeShip(SHIPS[index], board, position)
       index++
@@ -20,10 +21,11 @@ export function generateBoard() {
     }
   } while (index != 5)
   
+  console.log(board)
   return board
 }
 
-function emptyBoard() {
+export function emptyBoard() {
   const emptyBoard = []
   
   for (let x = 0; x < SIZE; x++) {

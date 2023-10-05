@@ -3,7 +3,7 @@ import { generateBoard } from "../logic/generateBoard";
 import { ShotCounter } from "./ShotCounter";
 import { ResetGame } from "./ResetGame";
 
-export function Board () {
+export function Board ({ player }) {
   const [board, setBoard] = useState(generateBoard)
   const [counter, setCounter] = useState(0)
 
@@ -13,21 +13,18 @@ export function Board () {
   }
 
   const resetGame = () => {
-    setBoard(generateBoard)
+    setBoard([])
+    setBoard(generateBoard())
     setCounter(0)
     // setColor(null)
   }
 
   return (
     <main className="userInterface" >
-      <section>
-        <h1>Battleship</h1>
-        <article onClick={handleCounter} className="board">
-          {board}
-        </article>
-      </section>
-
-      <section>
+      <article onClick={handleCounter} className="board">
+        {board}
+      </article>
+      <section className="counter">
         <ShotCounter counter={counter}></ShotCounter>
         <ResetGame resetGame={resetGame}></ResetGame>
       </section>
