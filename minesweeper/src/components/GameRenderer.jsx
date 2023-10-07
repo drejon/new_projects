@@ -1,35 +1,47 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Game } from "../logic/Game"
+import { Tile } from "./Tile"
 
 export function GameRenderer() {
   const COLUMNS = 7
   const ROWS = 7
-  const NUMBER_OF_MINES = 7
-  const game = new Game(COLUMNS, ROWS, NUMBER_OF_MINES)
+  const NUMBER_OF_MINES = 1
+
+  const [game] = useState(new Game(COLUMNS, ROWS, NUMBER_OF_MINES))
+  const [board, setBoard] = useState(game.serialize().board)
+
+  const resetGame = () => {
+    game.reset()
+  }
+
+  useEffect(() => {
+    const subscriberCallback = (board) => {
+      setBoard(board)
+    }
+    
+    game.addSubscriber(subscriberCallback)
+    
+    return () => { game.removeSubscribers() }
+  }, [])
 
   return (
+    <main>
+      <button onClick={resetGame}>
+        Reset
+      </button>
     <section className="board">
       {
-        game.board?.map((cell) => (
-          <article
-            className="tile"
-            onClick={() => {
-              // console.log(cell)
-              console.log('juego',game.getNearCells(cell.position))
-            }
-              // console.log(game.getNearCells(cell.position))
-            }
+        board?.map((cell) => (
+          
+          <Tile
+            updatePosition={game.updatePosition.bind(game)}
             key={cell.position.x.toString() + cell.position.y.toString()}
-            style={{backgroundColor: cell.isMine && 'red'}}
-            >
-              {
-              /* {[cell.position.x, cell.position.y]} */
-              // cell.isMine.toString()
-              cell.nearMines
-              }
-          </article>
-        ))
+            cell={cell}
+          />
+        )) 
       }
+      
     </section>
+    </main>
   )
 }

@@ -8,6 +8,7 @@ function App() {
   return (
     <>
       <h1>Minesweeper</h1>
+      
       <GameRenderer></GameRenderer>
     </>
   )
