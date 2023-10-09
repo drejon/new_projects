@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "The Way of the Kings",
+    "year": 2010,
+    "author": "Brandon Sanderson",
+    "saga": "Stormlight Archive",
+    "poster": ""
+  },
+  {
+    "id": 2,
+    "title": "Words of Radiance",
+    "year": 2014,
+    "author": "Brandon Sanderson",
+    "saga": "Stormlight Archive",
+    "poster": ""
+  },
+  {
+    "id": 3,
+    "title": "Oathbringer",
+    "year": 2017,
+    "author": "Brandon Sanderson",
+    "saga": "Stormlight Archive",
+    "poster": ""
+  },
+  {
+    "id": 4,
+    "title": "Rhythm of War",
+    "year": 2020,
+    "author": "Brandon Sanderson",
+    "saga": "Stormlight Archive",
+    "poster": ""
+  },
+  {
+    "id": 5,
+    "title": "Dawnshard",
+    "year": 2020,
+    "author": "Brandon Sanderson",
+    "saga": "Stormlight Archive",
+    "poster": ""
+  }
+]

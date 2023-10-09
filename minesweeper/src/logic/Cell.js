@@ -3,6 +3,7 @@ export class Cell {
     this.position = {x, y}
     this.isMine = false
     this.isRevealed = false
+    this.isMarked = false
     this.nearMines = 0
     this.neighbours = []
   }
@@ -16,11 +17,17 @@ export class Cell {
     return this.nearMines
   }
 
+  mark() {
+    this.isMarked = true
+    return this.isMarked
+  }
+
   serialize() {
     return {
       position: {x: this.position.x, y: this.position.y},
       isMine: this.isMine,
       isRevealed: this.isRevealed,
+      isMarked: this.isMarked,
       nearMines: this.nearMines,
       neightbours: this.neightbours
     }

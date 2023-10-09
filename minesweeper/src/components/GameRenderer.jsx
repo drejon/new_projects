@@ -5,7 +5,7 @@ import { Tile } from "./Tile"
 export function GameRenderer() {
   const COLUMNS = 7
   const ROWS = 7
-  const NUMBER_OF_MINES = 1
+  const NUMBER_OF_MINES = 7
 
   const [game] = useState(new Game(COLUMNS, ROWS, NUMBER_OF_MINES))
   const [board, setBoard] = useState(game.serialize().board)
@@ -26,6 +26,7 @@ export function GameRenderer() {
 
   return (
     <main>
+      <header><h1>{game.winState}</h1></header>
       <button onClick={resetGame}>
         Reset
       </button>

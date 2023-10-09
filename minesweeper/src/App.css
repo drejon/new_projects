@@ -11,16 +11,33 @@ button {
 
 .board {
   display: grid;
+  max-width: 100vh;
   gap: 1rem;
   grid-template-columns: repeat(7, 1fr);
 }
 
+.hidden {
+  background-color: rgb(230, 227, 224);
+}
+
+.hidden:hover {
+  background-color: bisque;
+}
+
 .tile {
-  width: 50px;
-  height: 50px;
-  border: 2px solid beige;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  border: 3px solid beige;
+  border-radius: 0.4rem;
 }
 
 .red {
-  background-color: red;
+  background-color: rgb(171, 89, 89)
+}
+
+.rightClick {
+  background-color: rgba(196, 207, 153, 0.863);
 }

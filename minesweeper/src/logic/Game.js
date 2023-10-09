@@ -1,45 +1,51 @@
 import { Cell } from "./Cell"
-
+const STATES = {
+  WIN: 'win',
+  LOSE: 'lose'
+}
 export class Game {
   constructor(columns, rows, mines) {
     this.columns = columns
     this.rows = rows
     this.mines = mines
     this.subscribers = []
+    this.winState = null
     this.board = this._createBoard()
     this._getNearMines()
   }
 
-  updatePosition(position) {
+  updatePosition(position, isMarked) {
     const cell = this._getCell(position)
+    
     if(cell.isRevealed) return
-    const nearCells = this._getNearCells(position)
-    console.log(cell)
-    cell.reveal()
-    this._notifySubscribers()
-
-    if (cell.nearMines === 0) {
-      nearCells.forEach((nearcell) => this.updatePosition(nearcell.position))
+    
+    if (isMarked) {
+      cell.mark()
+      this._checkWin()
       this._notifySubscribers()
-
-    //   console.log('true')
-    //   cell.neighbours.forEach(neighbour => {
-    //     console.log('2true')
-    //     neighbour.reveal()
-    //     // if (neighbour.nearMines === 0) {
-    //     //   neighbour.reveal()
-    //     //   this.updatePosition(neighbour.position)
-    //     //   this._notifySubscribers()
-    //     // }
-    //     // this.updatePosition(neighbour.position)
-    //     // this._notifySubscribers()
-    //   })
+      return
     }
     
+    if (cell.isMine) {
+      this._reveal()
+      this.winState = STATES.LOSE
+    }
+    
+    cell.reveal()
+    
+    if (cell.nearMines === 0) {
+      const nearCells = this._getNearCells(position)
+      nearCells.forEach((nearcell) => this.updatePosition(nearcell.position))
+      this._notifySubscribers()
+    }
+    
+    this._checkWin()
+    this._notifySubscribers()
   }
 
   reset() {
     this.board = this._createBoard()
+    this.winState = null
     this._getNearMines()
     this._notifySubscribers()
   }
@@ -60,7 +66,7 @@ export class Game {
   
   _notifySubscribers() {
     for (const subscriber of this.subscribers) {
-      const serializedBoard = this.board.map(cell => cell.serialize())
+      const serializedBoard = this.serialize().board
       subscriber(serializedBoard)
     }
   }
@@ -78,6 +84,14 @@ export class Game {
     }
     
     return board
+  }
+
+  _checkWin() {
+    const markedCells = this.board.filter((cell) => cell.isMine && cell.isMarked)
+    if (markedCells.length === this.mines) {
+      this.winState = STATES.WIN
+      this._reveal()
+    }
   }
 
   _getMinePositions() {
@@ -121,9 +135,6 @@ export class Game {
         if(neighbour !== undefined && !(this._positionMatch(cellPosition, neighbour.position)) ) {
           neighbours.push(neighbour)
         }
-        // if(neighbour !== undefined) {
-        //     neighbours.push(neighbour)
-        // }
       }
     }
 
@@ -137,6 +148,13 @@ export class Game {
       const mines = nearCells.filter((c) => c.isMine)
       
       cell.nearMines = mines.length
+    })
+  }
+
+  _reveal() {
+    this.board.map((cell) => {
+      cell.reveal()
+      this._notifySubscribers()
     })
   }
 
