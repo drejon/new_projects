@@ -4,9 +4,10 @@ export class Ship {
   constructor(name, size) {
     this.name = name
     this.positions = []
-    this.orientation = 'Horizontal'
+    this.orientation = ''
     this.size = size
     this.modules = []
+    this.isShip = true
     this.sunk = false
   }
 

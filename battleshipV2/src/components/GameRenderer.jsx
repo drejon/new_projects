@@ -7,7 +7,9 @@ export function GameRenderer({ game }) {
     <section className="board">
       { game.board.map( (cell) => (
         <div onClick={() => handleClick(cell)}>
-          {cell.name}
+          {/* <h2>{cell.name}</h2> */}
+          {cell.name !== 'W' && cell.name}
+          {/* {cell.position.x} */}
           {/* {cell.position.y} */}
         </div>
       )) 
