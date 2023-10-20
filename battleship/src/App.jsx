@@ -12,7 +12,7 @@ function App() {
         <h1>Battleship</h1>
         <main className='wrapper'>
             <Board player={false}></Board>
-            <Board player={true}></Board>
+            {/* <Board player={true}></Board> */}
         </main>
         {/* ------------------ */}
         {/* <Board player={true}></Board> */}

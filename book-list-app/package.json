@@ -1,0 +1,12 @@
+{
+  "name": "book-list-app",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "cd front && npm run dev",
+    "serve": "cd back && node --watch main.js",
+    "test": "cd back && npm test"
+  },
+  "author": "Diego Rejón Clemente",
+  "license": "ISC"
+}

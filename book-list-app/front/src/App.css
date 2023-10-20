@@ -5,38 +5,37 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+div {
+  margin: 0 auto;
+  margin-top: 1rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  height: 3em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.book {
+  width: 250px;
+  border: 1px solid salmon;
+  border-radius: 0.3em;
+  height: 250px;
 }
 
-.card {
-  padding: 2em;
+.library {
+  display: grid;
+  margin: 0 auto;
+  place-content: center;
+  width: fit-content;
+  gap: 1em;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.read-the-docs {
-  color: #888;
+.newBook {
+  align-items: center;
+  border: 1px solid salmon;
+  border-radius: 0.3em;
+  display: flex;
+  height: 250px;
+  justify-content: center;
+  width: 250px;
 }

@@ -1,32 +1,22 @@
-const express = require('express')
-const cors = require('cors')
+import express from 'express'
+import { BooksController } from './controllers/Books.js'
 
 const app = express()
 
 const PORT = process.env.PORT ?? 4000
-const MOCK = {
-  books:
-  [
-    {
-      author: 'Brandon Sanderson',
-      title: 'El camino de los Reyes',
-      year: 2010,
-      saga: 'El Archivo de las tormentas (1)',
-    },
-    {
-      author: 'Brandon Sanderson',
-      title: 'Palabras Radiantes',
-      year: 2012,
-      saga: 'El Archivo de las tormentas (2)',
-    }
-  ]
-}
+const ACCEPTED_ORIGINS = [
+  'http://localhost:5173'
+]
 
-app.use(cors())
 app.disable('x-powered-by')
 
 app.get('/v1/books', (req, res) => {
-  res.json(MOCK)
+  const origin = req.header('origin')
+
+  if(ACCEPTED_ORIGINS.includes(origin) || !origin){
+    res.header('Access-Control-Allow-Origin', origin)
+  }
+  res.json(BooksController.getAll())
 })
 
 app.listen(PORT, () => {

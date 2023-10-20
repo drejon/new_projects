@@ -41,7 +41,6 @@ export function GameRenderer() {
           />
         )) 
       }
-      
     </section>
     </main>
   )

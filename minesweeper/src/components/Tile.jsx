@@ -7,7 +7,7 @@ export function Tile({ cell, updatePosition }) {
     
     if(cell.isMarked) {return setColor('rightClick')}
 
-    if(!(cell.isRevealed)) {setColor('hidden')}
+    if(!cell.isRevealed) {setColor('hidden')}
     
     if(cell.isRevealed && cell.isMine) {setColor('red')}
 

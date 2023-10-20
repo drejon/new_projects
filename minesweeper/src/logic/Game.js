@@ -36,7 +36,6 @@ export class Game {
     if (cell.nearMines === 0) {
       const nearCells = this._getNearCells(position)
       nearCells.forEach((nearcell) => this.updatePosition(nearcell.position))
-      this._notifySubscribers()
     }
     
     this._checkWin()

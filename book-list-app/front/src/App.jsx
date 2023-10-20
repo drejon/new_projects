@@ -1,31 +1,45 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { Book } from './components/Book'
+import { NewBook } from './components/NewBook'
+import { CreateBook } from './components/CreateBook'
 
 function App() {
-  
-  // const [body, setBody] = useState([])
-  
-  // useEffect(() => {
-  //   getData()
-  // }, [])
-  
+  const [body, setBody] = useState([])
+  const [modal, setModal] = useState(false)
+  const URL = 'http://localhost:4000/v1/books'
+
+  const getData = () => {
+    fetch(URL)
+    .then(res => res.json())
+    .then(body => setBody(body))
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  useEffect(() => {
+   getData()
+  }, [])
+
+  const handleClick = () => {
+    modal ? setModal(false) : setModal(true)
+  }
+
   return (
     <>
       <h1>Book List</h1>
-      {/* {
-        body.books?.map(book => (
-          <section>
-            <header>
-              <p>{book.title}</p>
-              <p>{book.author}</p>
-            </header>
-            <footer>
-              <p>{book.saga}</p>
-              <p>{book.year}</p>
-            </footer>
-          </section>
-        ))
-      } */}
+      <main className='library'>
+        {
+          body.map(book => (
+            <Book book={book} />
+          ))
+        }
+        <NewBook handleClick={handleClick}></NewBook>
+      </main>
+      <section>
+        <CreateBook handleClick={handleClick} modal={modal}></CreateBook>
+      </section>
     </>
   )
 }
