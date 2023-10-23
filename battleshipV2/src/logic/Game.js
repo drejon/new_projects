@@ -3,13 +3,104 @@ import { Water } from "./Water"
 
 export class Game {
   constructor() {
-    this.orientations = ['Horizontal, Vertical']
+    this.orientations = ['Horizontal', 'Vertical']
     this.columns = 7
     this.rows = 7
     this.board = this._generateBoard()
     this.ships = this._generateShips()
     this._placeShips()
   }
+
+  _placeShips() {
+    let shipsPlaced = 0
+    
+    while (shipsPlaced != 5) {
+      const shipToPlace = this.ships[shipsPlaced]
+      let position = this._randomPosition()
+
+      const positions = this._getPositions(position, shipToPlace)
+      const isValidPositions = this._isValidPositions(positions, shipToPlace)
+      
+      if(isValidPositions) {
+        this._placeShip(shipToPlace.positions, shipToPlace)
+        shipsPlaced++
+      } else {
+        const newPosition = this._randomPosition()
+        position = newPosition
+      }
+    }
+  }
+
+  _isValidPositions(positions, ship) {
+    const horizontals = positions[0]?.length
+    const verticals = positions[1]?.length
+
+    const orientation = Math.round(Math.random())
+
+    if(horizontals === verticals === ship.size) {
+      ship.setOrientation(this.orientations[orientation])
+      this._placeShip(positions[orientation], ship)
+      return true
+    }
+
+    if(horizontals === ship.size) {
+      ship.setOrientation(this.orientations[0])
+      this._placeShip(positions[0], ship)
+      return true
+    }
+
+    if(verticals === ship.size) {
+      ship.setOrientation(this.orientations[1])
+      this._placeShip(positions[1], ship)
+      return true
+    }
+
+    return false
+  }
+
+  _placeShip(positions, ship) {
+    ship.setPositions(positions)
+    const modules = ship.modules
+
+    for (const index in modules) {
+      const aModule = modules[index]
+      const position = positions[index]
+      this._setTile(position, aModule)
+    }
+  }
+
+  _getPositions(position, ship) {
+    // Horizontal
+    const positions = []
+
+    let horizontal = []
+    for (let offset = 0; offset < ship.size; offset++) {
+      const newPosition = {x: position.x + offset, y: position.y}
+      const tile = this._getTile(newPosition)
+      if(tile !== undefined) {
+        !tile.isModule ? horizontal.push(newPosition) : horizontal = []
+      }
+    }
+    
+    let vertical = []
+    for (let offset = 0; offset < ship.size; offset++) {
+      const newPosition = {x: position.x, y: position.y + offset}
+      const tile = this._getTile(newPosition)
+      
+      if(tile !== undefined) {
+        !tile.isModule ? vertical.push(newPosition) : vertical = []
+      }
+    }
+
+    positions.push(horizontal, vertical)
+    
+    return positions
+  }
+
+  _matchPosition(a, b) {
+    return a.x === b.x && a.y === b.y
+  }
+
 
   _generateBoard() {
     const board = []
@@ -21,24 +112,6 @@ export class Game {
     }
 
     return board
-  }
-
-  _placeShips() {
-    let shipsPlaced = 0
-    let position = this._randomPosition()
-    
-    while (shipsPlaced != 5) {
-      const shipToPlace = this.ships[shipsPlaced]
-      const isPositionValid = this._isPositionAvailable(position, shipToPlace)
-      
-      if(isPositionValid) {
-        this._placeShip(shipToPlace.positions, shipToPlace)
-        shipsPlaced++
-      } else {
-        const newPosition = this._randomPosition()
-        position = newPosition
-      }
-    }
   }
 
   _generateShips() {
@@ -68,89 +141,6 @@ export class Game {
     return {
       x: Math.floor(Math.random()*this.columns), 
       y: Math.floor(Math.random()*this.rows)
-    }
-  }
-
-  _isPositionAvailable(position, ship) {
-    const positions = this._getPositions(position, ship)
-    
-    const horizontal = positions[0]?.length
-    const vertical = positions[1]?.length
-
-    const orientation = Math.round(Math.random())
-    
-    if(horizontal === ship.size && vertical === ship.size) {
-      ship.orientation = this.orientations[orientation]
-      ship.positions = positions[orientation]
-      return true
-    }
-    
-    if(horizontal === ship.size) {
-      ship.orientation = this.orientations[0]
-      ship.positions = positions[0]
-      return true
-    }
-    
-    if(vertical === ship.size) {
-      ship.orientation = this.orientations[1]
-      ship.positions = positions[1]
-      return true
-    }
-    
-    return false
-  }
-
-  _matchPosition(a, b) {
-    return a.x === b.x && a.y === b.y
-  }
-
-  _getPositions(position, ship) {
-    const positions = [this._getHorizontalPositions(position, ship), this._getVerticalPositions(position, ship)]
-    return positions
-  }
-
-  _getHorizontalPositions(position, ship) {
-    const positions = []
-    
-    if(position.x + ship.size > this.columns) return []
-    
-    for (let i = position.x; i < position.x + ship.size; i++) {
-      const newPosition = {x: i, y: position.y}
-      const isShip = this._isShip(position)
-      if(!isShip) {positions.push(newPosition)}
-    }
-
-    console.log(positions, ship)
-    if(positions.length === ship.size) return positions
-  }
-
-  _getVerticalPositions(position, ship) {
-    const positions = []
-
-    if(position.y + ship.size > this.rows) return []
-
-    for (let i = position.y; i < position.y + ship.size; i++) {
-      const newPosition = {x: position.x, y: i}
-      const isShip = this._isShip(position)
-      if(!isShip) {positions.push(newPosition)}
-    }
-
-    if(positions.length === ship.size) return positions
-  }
-
-  _isShip(position) {
-    const tile = this._getTile(position)
-    return tile.isShip
-  }
-
-  _placeShip(positions, ship) {
-    ship.setPositions(positions)
-    const modules = ship._generateModules()
-
-    for (const index in modules) {
-      const aModule = modules[index]
-      const position = positions[index]
-      this._setTile(position, aModule)
     }
   }
 }

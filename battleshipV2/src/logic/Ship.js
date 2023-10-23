@@ -13,17 +13,22 @@ export class Ship {
 
   setPositions(positions) {
     this.positions = positions
+    this._setModules()
     return this.positions
   }
 
-  _generateModules() {
+  setOrientation(orientation) {
+    this.orientation = orientation
+  }
+
+  _setModules() {
     const modules = []
     
     for (const position of this.positions) {
      modules.push(new Module(this.name, position))
     }
-
     this.modules = modules
+    
     return modules
   }
 }

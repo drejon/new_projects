@@ -3,7 +3,7 @@ export class Module {
     this.name = ship
     this.ship = ship
     this.position = position
-    this.isShip = true
+    this.isModule = true
     this.isDestroyed = false
   }
 }

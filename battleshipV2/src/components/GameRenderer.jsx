@@ -1,17 +1,15 @@
+import { Tile } from "./Tile"
+
 export function GameRenderer({ game }) {
   
-  const handleClick = (cell) => {
-    console.log(cell)
+  const handleClick = (tile) => {
+    console.log(tile)
   }
   return (
     <section className="board">
-      { game.board.map( (cell) => (
-        <div onClick={() => handleClick(cell)}>
-          {/* <h2>{cell.name}</h2> */}
-          {cell.name !== 'W' && cell.name}
-          {/* {cell.position.x} */}
-          {/* {cell.position.y} */}
-        </div>
+      { 
+      game.board.map( (tile) => (
+        <Tile key={JSON.stringify(tile.position)} tile={tile} onClick={() => handleClick(tile)}/>
       )) 
       }
     </section>
