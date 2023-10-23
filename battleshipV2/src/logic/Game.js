@@ -6,9 +6,38 @@ export class Game {
     this.orientations = ['Horizontal', 'Vertical']
     this.columns = 7
     this.rows = 7
+    this.subscribers = []
     this.board = this._generateBoard()
     this.ships = this._generateShips()
     this._placeShips()
+  }
+
+  updatePosition(position) {
+    const tile = this._getTile(position)
+    tile.destroy()
+    console.log(tile)
+    this._notifySubscribers()
+  }
+
+  serialize() {
+    return {
+      board: this.board.map(tile => tile.serialize())
+    }
+  }
+
+  addSubscriber(subscriber) {
+    this.subscribers.push(subscriber)
+  }
+
+  removeSubscribers() {
+    this.subscribers = []
+  }
+
+  _notifySubscribers() {
+    for (const subscriber of this.subscribers) {
+      const serializedBoard = this.serialize().board
+      subscriber(serializedBoard)
+    }
   }
 
   _placeShips() {
@@ -97,11 +126,6 @@ export class Game {
     return positions
   }
 
-  _matchPosition(a, b) {
-    return a.x === b.x && a.y === b.y
-  }
-
-
   _generateBoard() {
     const board = []
 
@@ -142,6 +166,10 @@ export class Game {
       x: Math.floor(Math.random()*this.columns), 
       y: Math.floor(Math.random()*this.rows)
     }
+  }
+
+  _matchPosition(a, b) {
+    return a.x === b.x && a.y === b.y
   }
 }
 

@@ -6,4 +6,18 @@ export class Module {
     this.isModule = true
     this.isDestroyed = false
   }
+
+  destroy() {
+    this.isDestroyed = true
+  }
+
+  serialize() {
+    return {
+      name: this.name,
+      ship: this.ship,
+      position: this.position,
+      isDestroyed: this.isDestroyed,
+      isModule: this.isModule,
+    }
+  }
 }

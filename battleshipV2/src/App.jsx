@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './App.css'
 import { GameRenderer } from './components/GameRenderer'
 import { Game } from './logic/Game'

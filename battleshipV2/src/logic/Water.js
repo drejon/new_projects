@@ -3,6 +3,19 @@ export class Water {
     this.name = 'W'
     this.isModule = false
     this.position = position
-    this.orientation = null
+    this.isDestroyed = false
+  }
+
+  serialize() {
+    return {
+      name: this.mame,
+      isModule: this.isModule,
+      isDestroyed: this.isDestroyed,
+      position: this.position,
+    }
+  }
+
+  destroy() {
+    this.isDestroyed = true
   }
 }

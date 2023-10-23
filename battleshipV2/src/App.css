@@ -20,3 +20,11 @@
 .board div:hover {
   background-color: aquamarine;
 }
+
+.blue {
+  background-color: rgb(93, 166, 195)
+}
+
+.red {
+  background-color: rgb(171, 89, 89)
+}
