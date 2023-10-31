@@ -1,0 +1,47 @@
+// TO-DO
+
+export class Cell {
+  constructor(name, position) {
+    this.name = name
+    this.position = position
+    this.isShowed = false
+    this.isHit = false
+    this.orientations = ['N', 'E', 'S', 'W']
+    this.orientation = this.orientations[1]
+    this.isWater = true
+  }
+  
+  turnToModule(newName) {
+    this.name = newName
+    this.isWater = false
+  }
+
+  serialize() {
+    return {
+      name: this.name,
+      position: this.position,
+      isShowed: this.isShowed,
+      isHit: this.isHit,
+      orientations: this.orientations,
+      orientation: this.orientation,
+      isWater: this.isWater,
+      ship: this.ship,
+    }
+  }
+
+  orientate(orientation) {
+    this.orientation = this.orientations[orientation]
+  }
+
+  show() {
+    this.isShowed = true
+  }
+
+  hide() {
+    this.isShowed = false
+  }
+
+  reveal() {
+    this.isHit = true
+  }
+}

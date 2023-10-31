@@ -1,24 +1,29 @@
 #root {
-  max-width: 1280px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
+main {
+  display: flex;
+}
+
 .board {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(11, 1fr);
   gap: 1em;
 }
 
 .board div {
-  width: 50px;
-  height: 50px;
-  border: 2px solid beige;
+  width: 34px;
+  height: 34px;
+  border: 3px solid beige;
+  border-radius: 0.3em;
 }
 
 .board div:hover {
-  background-color: aquamarine;
+  background-color: rgba(196, 207, 153, 0.863);
 }
 
 .blue {
@@ -27,4 +32,8 @@
 
 .red {
   background-color: rgb(171, 89, 89)
+}
+
+.yellow {
+  background-color: rgba(217, 216, 140, 0.925);
 }

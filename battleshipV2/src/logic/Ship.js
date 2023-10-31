@@ -1,34 +1,28 @@
-import { Module } from "./Module"
-
 export class Ship {
   constructor(name, size) {
     this.name = name
-    this.positions = []
-    this.orientation = ''
     this.size = size
+    this.positions = []
     this.modules = []
-    this.isShip = true
-    this.sunk = false
+    this.isSunk = false
+    this.orientations = ['N', 'E', 'S', 'W']
   }
 
-  setPositions(positions) {
-    this.positions = positions
-    this._setModules()
+  _setPositions() {
+    if(this.modules.length === 0) return
+    for (const module of this.modules) {
+      this.positions.push(module.position)
+    }
+    
     return this.positions
   }
 
   setOrientation(orientation) {
-    this.orientation = orientation
+    this.orientation = this.orientations[orientation]
   }
 
-  _setModules() {
-    const modules = []
-    
-    for (const position of this.positions) {
-     modules.push(new Module(this.name, position))
-    }
+  setModules(modules) {
     this.modules = modules
-    
-    return modules
+    this._setPositions()
   }
 }

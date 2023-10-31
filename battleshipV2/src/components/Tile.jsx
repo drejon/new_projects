@@ -4,16 +4,20 @@ export function Tile({ tile, updatePosition }) {
   const [color, setColor] = useState('')
   
   useEffect(() => {
-    if(tile.isDestroyed && tile.isModule) {setColor('red')}
-    if(tile.isDestroyed && !tile.isModule) {setColor('blue')}
+    
+    if(!tile.isRevealed) {setColor('')}
+    if(tile.isRevealed && tile.isModule) {setColor('red')}
+    if(tile.isRevealed && !tile.isModule) {setColor('blue')}
 
-  }, [tile.isModule, tile.isDestroyed]) 
+  }, [tile.isRevealed, tile.isDestroyed]) 
 
   return (
     <div
     className={color}
-    onClick={() => {updatePosition(tile.position)}}>
-      {tile.name !== 'W' && tile.name}
+    onClick={() => {updatePosition(tile.position)}}
+    >
+      {/* {tile.name === 'Water' && tile.name} */}
+      {tile.name}
     </div>
   )
 }

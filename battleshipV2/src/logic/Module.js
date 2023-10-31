@@ -5,10 +5,12 @@ export class Module {
     this.position = position
     this.isModule = true
     this.isDestroyed = false
+    this.isRevealed = false
   }
 
-  destroy() {
+  reveal() {
     this.isDestroyed = true
+    this.isRevealed = true
   }
 
   serialize() {
@@ -18,6 +20,7 @@ export class Module {
       position: this.position,
       isDestroyed: this.isDestroyed,
       isModule: this.isModule,
+      isRevealed: this.isRevealed
     }
   }
 }

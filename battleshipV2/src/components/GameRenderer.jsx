@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react"
 import { Tile } from "./Tile"
+import { Game } from "../logic/Game"
+import { UserGame } from "../logic/userGame"
+import { useGame } from "../hooks/useGame"
 
-export function GameRenderer({ game }) {
+// const game = new Game()
+
+export function GameRenderer( ) {
+
+  const [game] = useState(new Game())
   const [board, setBoard] = useState(game.serialize().board)
   
   useEffect(() => {
@@ -14,17 +21,25 @@ export function GameRenderer({ game }) {
     return () => { game.removeSubscribers() }
   }, [])
   
+  const resetGame = () => {
+    game.reset()
+  }
+
   return (
-    <section className="board">
-      { 
-      game.board.map( (tile) => (
-        <Tile 
-        key={JSON.stringify(tile.position)} 
-        tile={tile} 
-        updatePosition={game.updatePosition.bind(game)}
-        />
-      )) 
-      }
-    </section>
+    <main>
+      <h1>{game.winState}</h1>
+      <section className="board">
+        { 
+        board?.map( (tile) => (
+            <Tile 
+            updatePosition={(position) => game.updatePosition(position)}
+            key={tile.position.x.toString() + tile.position.y.toString()} 
+            tile={tile} 
+            />
+          ))
+        }
+      </section>
+      <button onClick={resetGame}>Reset</button>
+    </main>
   )
 }

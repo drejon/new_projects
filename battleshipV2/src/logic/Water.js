@@ -3,7 +3,7 @@ export class Water {
     this.name = 'W'
     this.isModule = false
     this.position = position
-    this.isDestroyed = false
+    this.isRevealed = false
   }
 
   serialize() {
@@ -12,10 +12,12 @@ export class Water {
       isModule: this.isModule,
       isDestroyed: this.isDestroyed,
       position: this.position,
+      isRevealed: this.isRevealed
     }
   }
 
-  destroy() {
+  reveal() {
     this.isDestroyed = true
+    this.isRevealed = true
   }
 }

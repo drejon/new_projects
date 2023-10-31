@@ -7,6 +7,7 @@ export class Game {
     this.columns = 7
     this.rows = 7
     this.subscribers = []
+    this.winState = null
     this.board = this._generateBoard()
     this.ships = this._generateShips()
     this._placeShips()
@@ -14,7 +15,10 @@ export class Game {
 
   updatePosition(position) {
     const tile = this._getTile(position)
-    tile.destroy()
+
+    if(tile.isRevealed) return
+    
+    tile.reveal()
     console.log(tile)
     this._notifySubscribers()
   }
@@ -23,6 +27,13 @@ export class Game {
     return {
       board: this.board.map(tile => tile.serialize())
     }
+  }
+
+  reset() {
+    this.board = this._generateBoard()
+    this.ships = this._generateShips()
+    this._placeShips()
+    this._notifySubscribers()
   }
 
   addSubscriber(subscriber) {
