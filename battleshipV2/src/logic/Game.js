@@ -54,21 +54,21 @@ export class Game {
   _placeShips() {
     let shipsPlaced = 0
     
-    while (shipsPlaced != 5) {
-      const shipToPlace = this.ships[shipsPlaced]
-      let position = this._randomPosition()
+    // while (shipsPlaced != 5) {
+    //   const shipToPlace = this.ships[shipsPlaced]
+    //   let position = this._randomPosition()
 
-      const positions = this._getPositions(position, shipToPlace)
-      const isValidPositions = this._isValidPositions(positions, shipToPlace)
+    //   const positions = this._getPositions(position, shipToPlace)
+    //   const isValidPositions = this._isValidPositions(positions, shipToPlace)
       
-      if(isValidPositions) {
-        this._placeShip(shipToPlace.positions, shipToPlace)
-        shipsPlaced++
-      } else {
-        const newPosition = this._randomPosition()
-        position = newPosition
-      }
-    }
+    //   if(isValidPositions) {
+    //     this._placeShip(shipToPlace.positions, shipToPlace)
+    //     shipsPlaced++
+    //   } else {
+    //     const newPosition = this._randomPosition()
+    //     position = newPosition
+    //   }
+    // }
   }
 
   _isValidPositions(positions, ship) {

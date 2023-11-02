@@ -25,7 +25,10 @@ export function User( ) {
   return (
     <main>
       {/* <h1>{orientation}</h1> */}
-      <section className="board">
+      <section 
+        className="board"
+        style={{gridTemplateColumns: `repeat(${game.columns}, 1fr)`}}
+        >
         { 
         board?.map( (cell) => (
             <Cell

@@ -112,7 +112,7 @@ export class UserGame {
     if(visible) {
       cells.map(
         cell => {
-          cell.show()
+          cell.reveal()
           cell.orientate(orientation)
         }
         )

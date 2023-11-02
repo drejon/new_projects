@@ -4,7 +4,7 @@ export class Cell {
   constructor(name, position) {
     this.name = name
     this.position = position
-    this.isShowed = false
+    this.isRevealed = false
     this.isHit = false
     this.orientations = ['N', 'E', 'S', 'W']
     this.orientation = this.orientations[1]
@@ -20,7 +20,7 @@ export class Cell {
     return {
       name: this.name,
       position: this.position,
-      isShowed: this.isShowed,
+      isRevealed: this.isRevealed,
       isHit: this.isHit,
       orientations: this.orientations,
       orientation: this.orientation,
@@ -33,15 +33,15 @@ export class Cell {
     this.orientation = this.orientations[orientation]
   }
 
-  show() {
-    this.isShowed = true
+  reveal() {
+    this.isRevealed = true
   }
 
   hide() {
-    this.isShowed = false
+    this.isRevealed = false
   }
 
-  reveal() {
+  hit() {
     this.isHit = true
   }
 }

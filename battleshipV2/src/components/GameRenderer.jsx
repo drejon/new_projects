@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react"
 import { Tile } from "./Tile"
 import { Game } from "../logic/Game"
-import { UserGame } from "../logic/userGame"
-import { useGame } from "../hooks/useGame"
-
-// const game = new Game()
 
 export function GameRenderer( ) {
 
@@ -28,7 +24,10 @@ export function GameRenderer( ) {
   return (
     <main>
       <h1>{game.winState}</h1>
-      <section className="board">
+      <section 
+      className="board"
+      style={{gridTemplateColumns: `repeat(${game.columns}, 1fr)`}}
+      >
         { 
         board?.map( (tile) => (
             <Tile 

@@ -13,9 +13,9 @@ export function Cell({
   const [color, setColor] = useState('')
   
   useEffect(() => {
-    if(cell.isShowed) {setColor('yellow')}
-    if(!cell.isShowed) {setColor('')}
-  }, [cell.isShowed])
+    if(cell.isRevealed) {setColor('yellow')}
+    if(!cell.isRevealed) {setColor('')}
+  }, [cell.isRevealed])
   
   const handleOver = () => {
     if(ship === undefined) return
