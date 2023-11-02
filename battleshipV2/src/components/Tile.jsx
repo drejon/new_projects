@@ -16,8 +16,8 @@ export function Tile({ tile, updatePosition }) {
     className={color}
     onClick={() => {updatePosition(tile.position)}}
     >
-      {/* {tile.name === 'Water' && tile.name} */}
-      {tile.name}
+      {tile.name !== 'W' && tile.name}
+      {/* {tile.name} */}
     </div>
   )
 }

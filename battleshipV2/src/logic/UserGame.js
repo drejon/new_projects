@@ -3,8 +3,8 @@ import { Ship } from "./Ship"
 
 export class UserGame {
   constructor() {
-    this.columns = 11
-    this.rows = 11
+    this.columns = 7
+    this.rows = 7
     this.subscribers = []
     this.placeState = true
     this.board = this._generateBoard()
@@ -168,13 +168,6 @@ export class UserGame {
   _getCell(position) {
     return this.board.find(cell => this._matchPosition(cell.position, position))
   }
-
-  // _setCell(position, content) {
-  //   const cell = this._getCell(position)
-  //   const index = this.board.indexOf(cell)
-
-  //   this.board[index] = content
-  // }
 
   _matchPosition(a, b) {
     return a.x === b.x && a.y === b.y

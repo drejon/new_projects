@@ -7,7 +7,7 @@ function App() {
   return (
     <main>
       {/* <h1>Battleship</h1> */}
-      {/* <GameRenderer></GameRenderer> */}
+      <GameRenderer></GameRenderer>
       <User></User>
     </main>
   )
