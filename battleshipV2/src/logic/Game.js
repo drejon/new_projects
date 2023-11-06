@@ -1,6 +1,5 @@
 import { Cell } from "./Cell"
 import { Ship } from "./Ship"
-import { Water } from "./Water"
 
 export class Game {
   constructor() {
@@ -8,30 +7,29 @@ export class Game {
     this.columns = 7
     this.rows = 7
     this.subscribers = []
-    this.winState = null
     this.board = this._generateBoard()
     this.ships = this._generateShips()
     this._placeShips()
   }
 
   updatePosition(position) {
-    const tile = this._getTile(position)
+    const cell = this._getCell(position)
 
-    if(tile.isRevealed) return
+    if(cell.isRevealed) return
     
-    tile.reveal()
+    cell.reveal()
+    cell.hit()
     this._notifySubscribers()
   }
 
   serialize() {
     return {
-      board: this.board.map(tile => tile.serialize())
+      board: this.board.map(cell => cell.serialize())
     }
   }
 
   reset() {
     this.board = this._generateBoard()
-    this.ships = this._generateShips()
     this._placeShips()
     this._notifySubscribers()
   }
@@ -78,12 +76,11 @@ export class Game {
 
     if(horizontals === verticals === ship.size) {
       ship.setOrientation(this.orientations[orientation])
-      
       positions[orientation].forEach( position => {
-        const cell = this._getTile(position)
+        const cell = this._getCell(position)
         cell.turnToModule(ship.name)
       })
-      
+      ship.setModules(positions[orientation])
       return true
     }
 
@@ -91,7 +88,7 @@ export class Game {
       ship.setOrientation(this.orientations[0])
       
       positions[0].forEach( position => {
-        const cell = this._getTile(position)
+        const cell = this._getCell(position)
         cell.turnToModule(ship.name)
       })
 
@@ -102,7 +99,7 @@ export class Game {
       ship.setOrientation(this.orientations[1])
       
       positions[1].forEach( position => {
-        const cell = this._getTile(position)
+        const cell = this._getCell(position)
         cell.turnToModule(ship.name)
       })
       
@@ -118,19 +115,19 @@ export class Game {
     let horizontal = []
     for (let offset = 0; offset < ship.size; offset++) {
       const newPosition = {x: position.x + offset, y: position.y}
-      const tile = this._getTile(newPosition)
-      if(tile !== undefined) {
-        tile.isWater ? horizontal.push(newPosition) : horizontal = []
+      const cell = this._getCell(newPosition)
+      if(cell !== undefined) {
+        cell.isWater ? horizontal.push(newPosition) : horizontal = []
       }
     }
     
     let vertical = []
     for (let offset = 0; offset < ship.size; offset++) {
       const newPosition = {x: position.x, y: position.y + offset}
-      const tile = this._getTile(newPosition)
+      const cell = this._getCell(newPosition)
       
-      if(tile !== undefined) {
-        tile.isWater ? vertical.push(newPosition) : vertical = []
+      if(cell !== undefined) {
+        cell.isWater ? vertical.push(newPosition) : vertical = []
       }
     }
 
@@ -163,8 +160,8 @@ export class Game {
     return ships
   }
 
-  _getTile(position) {
-    return this.board.find(tile => this._matchPosition(tile.position, position))
+  _getCell(position) {
+    return this.board.find(cell => this._matchPosition(cell.position, position))
   }
 
   _randomPosition() {

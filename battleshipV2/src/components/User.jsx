@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { UserGame } from "../logic/userGame"
-import { useGame } from "../hooks/useGame"
 import { Cell } from "./Cell"
 
 
@@ -24,7 +23,6 @@ export function User( ) {
 
   return (
     <main>
-      {/* <h1>{orientation}</h1> */}
       <section 
         className="board"
         style={{gridTemplateColumns: `repeat(${game.columns}, 1fr)`}}
@@ -48,7 +46,6 @@ export function User( ) {
           ))
         }
       </section>
-      {/* <button onClick={resetGame}>Reset</button> */}
     </main>
   )
 }

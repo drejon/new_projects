@@ -1,5 +1,3 @@
-// TO-DO
-
 export class Cell {
   constructor(name, position) {
     this.name = name

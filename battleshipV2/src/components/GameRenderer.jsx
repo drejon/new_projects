@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { Tile } from "./Tile"
 import { Game } from "../logic/Game"
+import { Arbitrator } from "../logic/Arbitrator"
+
+// const arbitrator = new Arbitrator()
+
 
 export function GameRenderer( ) {
-
   const [game] = useState(new Game())
   const [board, setBoard] = useState(game.serialize().board)
   
@@ -30,7 +33,8 @@ export function GameRenderer( ) {
       >
         { 
         board?.map( (tile) => (
-            <Tile 
+            <Tile
+            // fire={arbitrator.fireToPlayer}
             updatePosition={(position) => game.updatePosition(position)}
             key={tile.position.x.toString() + tile.position.y.toString()} 
             tile={tile} 
@@ -38,7 +42,6 @@ export function GameRenderer( ) {
           ))
         }
       </section>
-      <button onClick={resetGame}>Reset</button>
     </main>
   )
 }

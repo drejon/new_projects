@@ -15,7 +15,8 @@ export function Cell({
   useEffect(() => {
     if(cell.isRevealed) {setColor('yellow')}
     if(!cell.isRevealed) {setColor('')}
-  }, [cell.isRevealed])
+    if(cell.isHit) {setColor('red')}
+  }, [cell.isRevealed, cell.isHit])
   
   const handleOver = () => {
     if(ship === undefined) return
@@ -60,7 +61,7 @@ export function Cell({
       className={color}
     onClick={handleClick}
     >
-      {/* {cell.name === 'W' && cell.name} */}
+      {cell.name !== 'W' && cell.name}
     </div>
   )
 }

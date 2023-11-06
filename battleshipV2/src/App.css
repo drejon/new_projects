@@ -13,6 +13,7 @@ main {
   display: grid;
   grid-template-columns: repeat(11, 1fr);
   gap: 1em;
+  margin: 1em;
 }
 
 .board div {

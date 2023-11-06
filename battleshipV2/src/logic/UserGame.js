@@ -6,15 +6,21 @@ export class UserGame {
     this.columns = 7
     this.rows = 7
     this.subscribers = []
-    this.placeState = true
     this.board = this._generateBoard()
     this.ships = this._generateShips()
+    this.placedShips = []
   }
 
   serialize() {
     return {
       board: this.board.map(cell => cell.serialize())
     }
+  }
+
+  fired(position) {
+    const cell = this.getCell(position)
+    cell.hit()
+    this._notifySubscribers()
   }
 
   _generateShips() {
@@ -36,7 +42,7 @@ export class UserGame {
     if(isNorthValid) {
       for (let offset = 0; offset < ship.size; offset++) {
         const newPosition = {x: position.x, y: position.y - offset}
-        const cell = this._getCell(newPosition)
+        const cell = this.getCell(newPosition)
         if(cell.isWater) {
           northCells.push(cell)
         }
@@ -52,7 +58,7 @@ export class UserGame {
     if(isEastValid) {
       for (let offset = 0; offset < ship.size; offset++) {
         const newPosition = {x: position.x + offset, y: position.y}
-        const cell = this._getCell(newPosition)
+        const cell = this.getCell(newPosition)
         if(cell.isWater) {
           eastCells.push(cell)
         }
@@ -68,7 +74,7 @@ export class UserGame {
     if(isSouthValid) {
       for (let offset = 0; offset < ship.size; offset++) {
         const newPosition = {x: position.x , y: position.y + offset}
-        const cell = this._getCell(newPosition)
+        const cell = this.getCell(newPosition)
         if(cell.isWater) {
           southCells.push(cell)
         }
@@ -84,7 +90,7 @@ export class UserGame {
     if(isWestValid) {
       for (let offset = 0; offset < ship.size; offset++) {
         const newPosition = {x: position.x - offset , y: position.y}
-        const cell = this._getCell(newPosition)
+        const cell = this.getCell(newPosition)
         if(cell.isWater) {
           westCells.push(cell)
         }
@@ -159,13 +165,16 @@ export class UserGame {
 
   placeShip(modules) {
     for (const module of modules) {
-      const cell = this._getCell(module.position)
-      cell.turnToModule()
+      const cell = this.getCell(module.position)
+      cell.turnToModule(module.name)
     }
+    
+    this.placedShips.push(modules)
+    this.placedShips.length === 5 ? this.isPlacing = false : this.isPlacing = true
     this._notifySubscribers()
   }
 
-  _getCell(position) {
+  getCell(position) {
     return this.board.find(cell => this._matchPosition(cell.position, position))
   }
 

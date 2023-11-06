@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export function Tile({ tile, updatePosition }) {
+export function Tile({ tile, updatePosition, fire }) {
   const [color, setColor] = useState('')
   
   useEffect(() => {
@@ -14,10 +14,12 @@ export function Tile({ tile, updatePosition }) {
   return (
     <div
     className={color}
-    onClick={() => {updatePosition(tile.position)}}
+    onClick={() => {
+      // fire()
+      updatePosition(tile.position)
+    }}
     >
       {tile.name !== 'W' && tile.name}
-      {/* {tile.name} */}
     </div>
   )
 }
